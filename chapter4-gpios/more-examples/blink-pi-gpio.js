@@ -24,11 +24,11 @@ gpio.open(pin, "output", function (err) { //#C
   blink(pin, 2000,1); //#H
 });
 
-// #A Importing the GPIO management library
-// #B A blink function with the pin to activate, the blinking frequency and the initial status as parameters
-// #C Initialize the pin in output mode, once this is ready the anonymous function will be called
-// #D Write the current status to the pin
-// #E Once the status has been written we set a timer to recursively call blink
-// #F Listen to the even triggered when the program is about the exit
-// #G Cleanly close the GPIO pin before exiting
-// #H Call the blink function for pin #7 with a blinking speed of 2 seconds
+// #A Zamiportowanie biblioteki do obsługi portów 
+// #B Funkcja blink z parametrami określającymi pin który należy aktywować, częstotliwością błyskania oraz początkowym stanem diody
+// #C Zainicjowanie pinu w trybie wyjściowym, po zakończeniu operacji zostanie wywołana funkcja anonimowa
+// #D Zapis bieżącego stanu pinu
+// #E Po zapisaniu stanu ustawiamy licznik czasu, który rekurencyjnie wywoła funkcję blink
+// #F Nasłuchiwanie zdarzenia wyzwalanego gdy program ma zostać zakończony
+// #G Zamknięcie portu GPIO przed zakończeniem programu
+// #H Wywołanie funkcji blink dla pinu numer 7, z częstotliwością błyskania wynoszącą 2 sekundy

@@ -7,17 +7,17 @@ var interval = setInterval(function () { //#B
 
 function read() {
   var readout = sensorLib.read(); //#C
-  console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' + //#D
-    'humidity: ' + readout.humidity.toFixed(2) + '%');
+  console.log('Temperatura: ' + readout.temperature.toFixed(2) + 'C, ' + //#D
+    'wilgotność: ' + readout.humidity.toFixed(2) + '%');
 };
 
 process.on('SIGINT', function () {
   clearInterval(interval);
-  console.log('Bye, bye!');
+  console.log('Do zobaczenia!');
   process.exit();
 });
 
-//#A 22 is for DHT22/AM2302, 12 is the GPIO we connect to on the Pi
-//#B create an interval to read the values every 2 seconds
-//#C read the sensor values
-//#D readout contains two values: temperature and humidity
+//#A 22 oznacza DHT22/AM2302, 12 to numer GPIO Pi, do którego czujnik został podłączony.
+//#B Utworzenie czasomierza, który będzie odczytywał wartości z czujnika co dwie sekundy.
+//#C Odczyt wartości czujnika.
+//#D Odczyt zawiera dwie wartości: temperaturę oraz wilgotność.

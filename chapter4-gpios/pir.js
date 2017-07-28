@@ -3,16 +3,16 @@ var Gpio = require('onoff').Gpio,
 
 sensor.watch(function (err, value) { //#B
   if (err) exit(err);
-  console.log(value ? 'there is someone!' : 'not anymore!');
+  console.log(value ? 'ktoś tu jest!' : 'już nie ma!');
 });
 
 function exit(err) {
-  if (err) console.log('An error occurred: ' + err);
+  if (err) console.log('Wystąpił błąd: ' + err);
   sensor.unexport();
-  console.log('Bye, bye!')
+  console.log('Do zobaczenia!')
   process.exit();
 }
 process.on('SIGINT', exit);
 
-// #A Initialize pin 17 in input mode, 'both' means we want to handle both rising and falling interrupt edges
-// #B Listen for state changes on pin 17, if a change is detected the anonymous callback function will be called with the new value
+// #A Inicjalizacja pinu 17. w trybie wejściowym, zastosowanie wartości 'both' oznacza, że interesują nas przerwania związane zarówno ze zmianą wartości na większą, jak i mniejszą.
+// #B Nasłuchiwanie na zmiany wartości pinu 17., w momencie wykrycia zmiany zostaje wywołana anonimowa funkcja zwrotna, a do niej zostanie przekazana nowa wartość pinu.
