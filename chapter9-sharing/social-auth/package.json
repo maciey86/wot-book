@@ -1,10 +1,10 @@
 {
-  "name": "chapter9-sharing",
+  "name": "rozdzial9-udostepnianie",
   "version": "1.0.0",
   "description": "TODO",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Błąd: nie określono żadnych testów\" && exit 1"
   },
   "author": "Dom Guinard",
   "license": "ISC",

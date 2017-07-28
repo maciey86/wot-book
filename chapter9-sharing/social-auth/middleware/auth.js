@@ -9,7 +9,7 @@ exports.socialTokenAuth = function () {
     } else {
       var token = req.body.token || req.get('authorization') || req.query.token;
       if (!token) {
-        return res.status(401).send({success: false, message: 'API token missing.'});
+        return res.status(401).send({success: false, message: 'Brak żetonu API.'});
       } else {
         checkUserAcl(token, req.path, function (err, user) { //#C
           if (err) {
@@ -29,7 +29,7 @@ function checkUserAcl(token, path, callback) { //#F
   if (userAcl) {
     callback(null, userAcl);
   } else {
-    callback('Not authorized for this resource!', null);
+    callback('Brak uprawnień dostępu do tego zasobu!', null);
   }
 };
 function findInAcl(filter) {
@@ -38,10 +38,10 @@ function findInAcl(filter) {
 
 
 function isOpen(path) { //#G
-  // Access to any CSS is open...
+  // Dostęp do wszystkich plików CSS jest otwarty...
   if (path.substring(0, 5) === "/css/") return true;
 
-  // Is the path an open path?
+  // Czy ścieżka jest otwarta?
   if (acl.open.indexOf(path) !== -1) return true;
 }
 
@@ -54,7 +54,7 @@ function checkUser(socialUserId, token, callback) { //#H
     result.token = token; //#J
     callback(null, result);
   } else {
-    callback('User <b>' + socialUserId + '</b> not found! Did you add it to acl.json?', null);
+    callback('Nie znaleziono użytkownika <b>' + socialUserId + '</b>! Czy dodałeś go do pliku acl.json?', null);
   }
 };
 
@@ -66,18 +66,18 @@ function getToken(socialUserId, callback) {
   if (result) {
     callback(null, result);
   } else {
-    callback('User <b>' + socialUserId + '</b> not found! Did you add it to acl.json?', null);
+    callback('Nie znaleziono użytkownika <b>' + socialUserId + '</b>! Czy dodałeś go do pliku acl.json?', null);
   }
 };
 
 
-//#A Require your ACL config file
-//#B If the request is for an open path, call the next middleware
-//#C Otherwise, get the access token and check the ACL for this token
-//#D If there’s an error, return a 403 Forbidden status code
-//#E Otherwise, the user is good to go, and you call the next middleware
-//#F Can we find a user with the given token and the given path, for example, /temp?
-//#G Handle open resources
-//#H Called by facebook.js when a user is authenticated
-//#I If the user ID you got from Facebook is present in your ACL, you have a winner!
-//#J Store the user token to allow them to make subsequent calls to resources they can access
+//#A Wczytanie pliku konfiguracyjnego z listą kontroli dostępu.
+//#B Jeśli żądanie dotyczy ścieżki otwartej wywoływane jest następne oprogramowanie warstwy pośredniej.
+//#C W przeciwnym razie zostaje pobrany żeton dostępu, który następnie jest sprawdzany przy użyciu listy kontroli dostępu.
+//#D W razie wystąpienia błędu zwracany jest kod statusu HTTP 403 Forbidden.
+//#E W przeciwnym razie, czyli gdy wszystko jest w porządku, zostaje wywołane następne oprogramowanie warstwy pośredniej.
+//#F Czy można znaleźć użytkownika o podanym żetonie i określonej ścieżki, na przykład, /temp?
+//#G Obsługa otwartych zasobów.
+//#H Funkcja wywoływana przez facebook.js po uwierzytelnieniu użytkownika.
+//#I Jeśli identyfikator użytkownika zwrócony przez Facebook jest dostępny na liście kontroli dostępu, mamy zwycięzcę!
+//#J Zapisanie żetonu użytkownika, by pozwolić mu na wykonywanie kolejnych żądań do zasobów, do którym ma dostęp.

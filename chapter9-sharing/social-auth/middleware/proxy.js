@@ -19,8 +19,8 @@ module.exports = function() {
   }
 };
 
-//#A Load the Thing that can be proxied (there’s just one here)
-//#B Initialize the proxy server, making it an HTTPS proxy to ensure end-to-end encryption
-//#C Do not verify the certificate (true would refuse local certificate)
-//#D Proxy middleware function; add the secret token of the Thing
-//#E Proxy the request; notice that this middleware doesn’t call next() because it should be the last in the chain
+//#A Wczytanie rzeczy do których mogą być przekazywane żądania (w tym przykładzie jest tylko jedna).
+//#B Inicjalizacja serwera przekazującego żądania - będzie to serwer używający HTTPS, by zapewnić szyfrowanie całego kanału komunikacyjnego.
+//#C Certyfikaty nie będą weryfikowane (użycie true spowodowałoby odrzucenie lokalnych certyfikatów).
+//#D Funkcja przekazująca żądania; do żadania jest dodawany tajny żeton rzeczy.
+//#E Przekazanie żądania; warto zwrócić uwagę, że to oprogramowanie warstwy pośredniej nie wywołuje funkcji next(), ponieważ powinno być ostatnim w łańcuchu.

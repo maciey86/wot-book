@@ -89,14 +89,14 @@ function setupFacebookAuth(app) {
 
 };
 
-// #A Configuration variables: FB app ID, app secret, name, and the URL to call back after a user authentication on Facebook
-// #B Initialize Passport and support storing the user login in sessions
-// #C If you had a database of users you’d use these two methods to load and save users
-// #D The credentials used to authenticate your auth proxy as a Facebook app
-// #E This URL will be called by Facebook after a successful login
-// #F The “verify” function, called by the framework after a successful authentication with the provider; here we check if the user is known by the proxy and store their token if so
-// #G Trigger the authentication process, and redirect the user to facebook.com
-// #H Facebook.com will redirect the user to the callbackUrl, so this function will never be called!
-// #I This route will be called by Facebook after user authentication. If it fails you redirect to /login, otherwise to /account
-// #J If the user is authenticated you get their token and display their account page; otherwise redirect to /login
-// #K A unique social identifier is formed by concatenating the social userId and the social network name
+// #A Zmienne konfiguracyjne: identyfikator aplikacji Facebooka, klucz tajny aplikacji, nazwa, adres URL wywoływany po uwierzytelnieniu użytkownika.
+// #B Inicjalizacja modułu Passport i umożliwienie przechowywania danych użytkownika w sesji.
+// #C Gdyby istniała baza danych użytkowników, to te dwie metody byłyby używane do ich wczytywania i zapisywania.
+// #D Dane używane do uwierzytelnienia tworzonego pośrednika jako aplikacji Facebooka. 
+// #E Ten adres URL zostanie wywołany przez Facebook po pomyślnym zalogowaniu.
+// #F Funkcja "weryfikująca", wywoływana przez framework po pomyślnym uwierzytelnieniu przez pośrednika; sprawdzamy w niej czy pośrednik zna użytkownika, a jeśli tak to zapisujemy ich żetony.
+// #G Uruchomienie procesu uwierzytelniania i przekierowanie użytkownika na stronę facebook.com.
+// #H Facebook.com przekieruje użytkownika na adres callbackUrl, zatem ta funkcja nigdy nie zostanie wywołana!
+// #I Ta trasa zostanie wywołana przez Facebook po uwierzytelnieniu użytkownika. Nieudane logowanie zakończy się przekierowaniem na adres /login, a udane na stronę /account.
+// #J Dla zalogowanego użytkownika zostaje pobrany jego żeton i wyświetlona strona jego konta; w przeciwnym razie użytkownik zostaje przekierowany na adres /login.
+// #K Unikalny identyfikator społecznościowy jest tworzony poprzez połączenie identyfikatora użytkownika w sieci społecznościowej oraz nazwy tej sieci.

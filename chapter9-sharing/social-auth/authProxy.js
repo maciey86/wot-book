@@ -23,19 +23,19 @@ var app = express();
 app.use(bodyParser.json());
 app.use(auth.socialTokenAuth());
 
-// configure Express
+// konfiguracja Express
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 
 app.engine('html', cons.handlebars);
 app.set('view engine', 'html');
 
-// add the FB auth support and pages
+// dodania obsługi uwierzytelniania przez FB oraz związanych z tym stron
 fb.setupFacebookAuth(app);
 app.use(proxy());
 
 var httpServer = https.createServer(tlsConfig, app);
 httpServer.listen(config.sourcePort, function () {
-  console.log('WoT Social Authentication Proxy started on port: %d', config.sourcePort);
+  console.log('Pośrednik uwierzytelniania uruchomiony na porcie: %d', config.sourcePort);
 });
 
