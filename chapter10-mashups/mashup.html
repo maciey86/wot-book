@@ -11,8 +11,8 @@
     var result = JSON.parse(event.data);
     console.log(result);
     if(result.value === true) {
-      console.log('Intruder detected!');
-    // We detected an intruder!
+      console.log('Wykryto włamywacza!');
+    // Wykryto włamywacza!
     updateSwitch();
     takePicture();
   }
@@ -25,7 +25,7 @@ function subscribeToPir() {
 }
 
 function takePicture() {
-  // Replace with this once CORS enabled!
+  // Zastąpić poniższym fragmentem po włączeniu wykorzystania mechanizmu CORS!
   // $.ajax({
   //   type: "GET",
   //   url: 'http://images.webcams.travel/original/1199785699-Weather-Charmey-Vounetz-Charmey.jpg',
