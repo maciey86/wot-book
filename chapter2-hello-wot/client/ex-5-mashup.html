@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My first WoT Mashup!</title>
+  <title>Mój pierwszy mashup WoT!</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -25,7 +25,7 @@ $(document).ready(function () {
         console.log('Pi @ London: ' + piResult.value);
         publishMessage(prepareMessage(name, location, localTemp, piResult.value)); //#C
       });
-    });
+    }); 
   }
 
   function publishMessage(message) {
@@ -34,9 +34,9 @@ $(document).ready(function () {
       contentType: 'application/json',
       method: 'POST',
       success: function (data) {
-        $('#message').html('Published to LCD: ' + message);
-        $('#wait').html('The Webcam image with your message will appear below in : ' + (data.displayInSeconds+2) + ' seconds.');
-        console.log('We will take a picture in ' + (data.displayInSeconds+2) + ' seconds...');
+        $('#message').html('Opublikowano na LCD: ' + message);
+        $('#wait').html('Zdjęcie z kamery internetowej z Twoim komunikatem zostanie wyświetlone poniżej za ' + (data.displayInSeconds+2) + ' sekund.');
+        console.log('Zdjęcie zostanie zrobione za ' + (data.displayInSeconds+2) + ' sekund...');
         setTimeout(takePicture, (data.displayInSeconds+2) * 1000); //#E 
       }
     });
@@ -61,18 +61,18 @@ $(document).ready(function () {
     });
   }
 
-  mashup('Rachel', 'Zurich, CH');
+  mashup('Renata', 'Gliwice, PL');
 });
-//#A First, get the temperature in the user location from Yahoo
-//#B Then get the temperature from the WoT Pi in London
-//#C Prepare the text to publish and use it to update the content of the LCD screen
-//#D POST the message to the LCD actuator
-//#E Set a timer that will call the takePicture() function in N seconds (after the LCD content has been updated)
-//#F Generates the text to display with the user name, location and Pi temperature
-//#G Retrieve the current image from the Webcam in our office
-//#H Update the HTML <img> tag with the image URL
+//#A - W pierwszej kolejności, z serwisu Yahoo pobierana jest temperatura w miejscu gdzie znajduje się użytkownik.
+//#B - Następnie pobierana jest temperatura zmierzona przez Pi w naszym biurze w Londynie.
+//#C - Przygotowanie treści komunikatu i zastosowanie go do aktualizacji tekstu wyświetlanego na ekranie LCD.
+//#D - Wysłanie żądania POST z komunikatem do ekranu LCD.
+//#E - Ustawienie czasomierza, który po upłynięciu N sekund (kiedy ekran LCD zostanie już zaktualizowany) wywoła funkcję takePicture().
+//#F - Generacja tekstu do wyświetlenia, zawierającego imię użytkownika, jego lokalizację oraz temperaturę zmierzoną przez Pi.
+//#G - Pobranie zdjęcia zrobionego przez kamerę internetową w naszym biurze.
+//#H - Aktualizacja znacznika HTML <img> i zapisanie w nim adresu URL zrobionego zdjęcia.
   </script>
-<h1>Compare my Weather WoT Mashup</h1>
+<h1>Aplikacja typu mashup porównująca temperatury</h1>
 <h2 id='message'></h2>
 <h3 id='wait'></h3>
 <img id="camImg" src=""/>

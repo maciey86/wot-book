@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Exercise 3.2 - POST Command to Actuator</title>
+  <title>Ćwiczenie 3.2 - Wysyłanie polecenia żądaniem POST</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -13,15 +13,15 @@
 </head>
 
 <body>
-  <h1>Send Message to WoT Pi (AJAX+JSON)</h1>
+  <h1>Wysyłanie komunikatu do webowego Pi (AJAX+JSON)</h1>
 
   <div id="response"> 
     <pre></pre> 
   </div> 
   
   <form id="message-form"> 
-    <input type="text" id="value" name="value" placeholder="Your message..." /> 
-    <button type="submit">Submit</button> 
+    <input type="text" id="value" name="value" placeholder="Wpisz komunikat..." /> 
+    <button type="submit">Wyślij</button> 
   </form> 
 
   <script> 
@@ -45,14 +45,15 @@
 $('#message-form').submit(processForm); 
 })(jQuery); //#H
 
-//#A The URL the request will be sent to
-//#B The format of the data you expect to get
-//#C The HTTP verb this request will send
-//#D The encoding of the data you are sending 
-//#E The actual data you are sending (the content of the form)
-//#F The callback to invoke if the request was successful
-//#G The callback to invoke if the request failed
-//#H We attach the processForm() function to be called when someone presses submit
+//#A Adres URL, na jaki zostanie wysłane żądanie.
+//#B Oczekiwany format danych wynikowych.
+//#C Czasownik HTTP określający sposób wysyłania żądania.
+//#D Sposób kodowania wysyłanych danych.
+//#E Wysyłane dane (faktyczna zawartość formularza).
+//#F Funkcja zwrotna wywoływana, jeśli żądanie zostanie prawidłowo obsłużone.
+//#G Funkcja zwrotna wywoływana, jeśli nie uda się prawidłowo obsłużyć żądania.
+//#H Funkcja processForm() zostanie wykonana, kiedy użytkownik naciśnie przycisk wysyłający formularz.
+
   </script> 
 
 </body>

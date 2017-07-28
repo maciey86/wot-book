@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Exercise 4 - Parse a Device</title>
+	<title>Ćwiczenie 4 - Analiza danych urządzenia</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -12,28 +12,28 @@
 
 </head>
 <body>
-	<h1>Browse a new device</h1>
+	<h1>Informacje o urządzeniu</h1>
 	
 		<form id="message-form"> 
 			<input type="text" id="host" name="host" value="http://devices.webofthings.io/pi" placeholder="The URL of a WoT device" />
-			<button type="submit">Browse this device</button> 
+			<button type="submit">Przejrzyj dane urządzenia</button> 
 		</form> 
 		
 		<hr>
 
 		<div id="headers">
-			<h4>HTTP Response headers</h4> 
+			<h4>Nagłówki odpowiedzi HTTP</h4> 
 			<pre></pre> 
 		</div> 
 
 		<div id="response">
-			<h4>JSON Response</h4> 
+			<h4>Odpowiedź JSON</h4> 
 			<pre></pre> 
 		</div> 
 
-		<h4>Device Metadata</h4>
-		<p>Metadata (general model used by this device) : <div id="meta"></div></p>
-		<p>Doc (human-readable data for this device): <div id="doc"></div></p>
+		<h4>Metadane urządzenia</h4>
+		<p>Metadane (ogólny model używany przez urządzenie) : <div id="meta"></div></p>
+		<p>Dokumentacja (dane urządzenia w formacie czytelnym dla człowieka): <div id="doc"></div></p>
 
 		<script> 
 		(function($){ function processForm(e){
@@ -43,12 +43,12 @@
           		type: 'GET',
           		dataType: 'json',
           		success: function(data, textStatus, jqXHR) { 
-	  				// Plot the response JSON object
+	  				// Wyświetlenie obiektu JSON zwróconego w odpowiedzi
 					$('#response pre').html( JSON.stringify( data ) ); //
 
 					console.log( jqXHR ); 
 
-					// Explore All Links
+					// Przeglądnięcie wszystkich odnośników
 
 					$('#meta').html( "<a href=\""+data.links.meta.rel+"\">"+data.links.meta.title+"</a>");
 					$('#doc').html( "<a href=\""+data.links.doc.rel+"\">"+data.links.doc.title+"</a>");
@@ -57,11 +57,11 @@
 	  				if (data.devices){
 
 	  				} else {
-	  					$('#response pre').html("No devices found")
+	  					$('#response pre').html("Nie znaleziono urządzenia")
 	  				}
           		},
           		error: function(data, textStatus, jqXHR) { 
-					// Plot the response headers
+					// Wyświetlenie wszystkich nagłówków odpowiedzi
 					$('#headers pre').html(jqXHR.getAllResponseHeaders());
           		},
           		beforeSend: setHeader

@@ -60,9 +60,9 @@ socket.onerror = function (error) { //#C
   console.log(error);
 };
 
-//#A Create a WebSocket subscription to the temperature sensor. Note that the URL uses the WebSockets protocol (ws://...)
-//#B Register this anonymous function to be called when a message arrives on the WebSocket
-//#C Register this other anonymous function to be triggered when an error occurs on the WebSocket
+//#A Utworzenie subskrypcji WebSocket pobierającej dane z czujnika temperatury. Koniecznie należy zwrócić uwagę na zastosowanie protokołu WebSocket (ws://…).
+//#B Zarejestrowanie anonimowej funkcji, która ma być wywoływana po odebraniu komunikatu WebSocket.
+//#C Zarejestrowanie kolejnej anonimowej funkcji, która będzie wywoływana w przypadku wystąpienia błędów komunikacji WebSocket.
 
 });
 
