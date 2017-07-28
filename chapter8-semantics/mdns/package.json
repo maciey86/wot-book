@@ -1,10 +1,10 @@
 {
   "name": "mdns-pi",
   "version": "0.0.1",
-  "description": "MDNS example of the Building the Web of Things Book",
+  "description": "Przykład do książki: Internet rzeczy. Budowa sieci z wykorzystaniem technologii webowych i Raspberry Pi",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Błąd: nie określono żadnych testów\" && exit 1"
   },
   "repository": {
     "type": "git",

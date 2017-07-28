@@ -1,10 +1,10 @@
 var mdns = require('mdns');
 
-// advertise a http server on port 4321
+// rozgłoszenie informacji o serwerze HTTP na porcie 4321
 var ad = mdns.createAdvertisement(mdns.tcp('http'), 4321);
 ad.start();
 
-// watch all http servers
+// obserwowanie wszystkich serwerów HTTP
 var browser = mdns.createBrowser(mdns.tcp('http'));
 browser.on('serviceUp', function(service) {
   console.log("service up: ", service);
@@ -14,5 +14,5 @@ browser.on('serviceDown', function(service) {
 });
 browser.start();
 
-// discover all available service types
+// wykrycie wszystkich dostępnych typów usług
 var all_the_types = mdns.browseThemAll();
