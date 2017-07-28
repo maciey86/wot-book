@@ -14,9 +14,8 @@ exports.mul = function(a, b) {
 }
 
 function logOp(a, b, op) {  //#B
-  console.log('Computing ' + a + op + b);
+  console.log('Obliczam ' + a + op + b);
 }
 
-//#A The exports object is used to make a function of our module available to the module users
-//#B The logOp function is internal to this module and will not be available from outside this file
-
+//#A Obiekt export sprawia, że funkcje tego modułu będą dostępne dla jego użytkowników.
+//#B logOp jest wewnętrzną funkcją modułu, która nie będzie dostępna poza tym plikiem.

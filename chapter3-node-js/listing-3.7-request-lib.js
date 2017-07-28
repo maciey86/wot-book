@@ -5,5 +5,5 @@ request('http://webofthings.org', function (error, response, body) {  //#A
   }
 });
 
-//#A This is an anonymous callback that will be invoked when the request library did fetch the webofthings homepage from the Web
-//#B This will display the HTML code of the page
+//#A Anonimowa funkcja zwrotna, która zostanie wywołana gdy biblioteka request pobierze wskazaną stronę z internetu.
+//#B Wyświetlenie kodu HTML strony.

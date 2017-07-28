@@ -7,7 +7,7 @@ var serviceRootUrl = 'http://localhost:8686';
 
 
 http.createServer(function (servReq, servResp) {
-  console.log('New incoming client request...');
+  console.log('Nowe żądanie od klienta...');
   if (servReq.url === '/log') {
     request({url: serviceRootUrl + '/temperature', json: true},  //#A
       function (err, resp, body) {
@@ -22,7 +22,7 @@ http.createServer(function (servReq, servResp) {
               if (resp.statusCode === 200) {
                 console.log(body);
                 var light = body.light;
-                var logEntry = 'Temperature: ' + temperature + ' Light: ' + light;
+                var logEntry = 'Temperatura: ' + temperature + ' Oświetlenie: ' + light;
                 fs.appendFile('log.txt', logEntry + '\n', encoding = 'utf8', function (err) { //#C
                   if (err) throw err;
                   servResp.writeHeader(200, {"Content-Type": "text/plain"});
@@ -35,9 +35,9 @@ http.createServer(function (servReq, servResp) {
       });
   } else {
     servResp.writeHeader(200, {"Content-Type": "text/plain"});
-    servResp.write('Please use /log');
+    servResp.write('Proszę użyć ścieżki: /log');
     servResp.end();
   }
 
 }).listen(port);
-console.log('Server listening on http://localhost:' + port);
+console.log('Serwer działa na adresie http://localhost:' + port);

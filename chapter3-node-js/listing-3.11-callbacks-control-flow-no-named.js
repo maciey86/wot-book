@@ -7,7 +7,7 @@ var port = 8787;
 var serviceRootUrl = 'http://localhost:8686';
 
 http.createServer(function (req, res) {
-  console.log('New incoming client request...');
+  console.log('Nowe żądanie od klienta...');
   if (req.url === '/log') {
     async.series([  //#A
         function (callback) {
@@ -32,7 +32,7 @@ http.createServer(function (req, res) {
         }],
       function (err, results) { //#C
         console.log(results);   //#D
-        var logEntry = 'Temperature: ' + results[0] + ' Light: ' + results[1];
+        var logEntry = 'Temperatura: ' + results[0] + ' Oświetlenie: ' + results[1];
         fs.appendFile('log.txt', logEntry + '\n', encoding = 'utf8', function (err) {
           if (err) throw err;
           res.writeHeader(200, {"Content-Type": "text/plain"});
@@ -43,13 +43,13 @@ http.createServer(function (req, res) {
 
   } else {
     res.writeHeader(200, {"Content-Type": "text/plain"});
-    res.write('Please use /log');
+    res.write('Proszę użyć ścieżki /log');
     res.end();
   }
 }).listen(port);
-console.log('Server listening on http://localhost:' + port);
+console.log('Serwer działa na adresie http://localhost:' + port);
 
-//#A We create an array of functions to be invoked in series
-//#B Call the next function in the series
-//#C This function is called when the last function in the series returned
-//#D results is now equal to [light, temperature]
+//#A Tworzymy tablicę funkcji, które mają być wywołane w sekwencji.
+//#B Wywołanie następnej funkcji w sekwencji.
+//#C Ta funkcja zostanie wywołana po zakończeniu wykonywania ostatniej funkcji w sekwencji.
+//#D Parametr results zawiera teraz tablicę [temperatura, oświetlenie].

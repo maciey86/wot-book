@@ -6,25 +6,25 @@ function randomInt (low, high) {
 }
 
 http.createServer(function(req,res){
-  console.log('New incoming client request for ' + req.url);
+  console.log('Nowe żądanie do ' + req.url);
   res.writeHeader(200, {'Content-Type': 'application/json'}); //#A
   switch(req.url) { //#B
     case '/temperature':
-      // And return the corresponding JSON
+      // Zwracamy odpowiedni kod JSON
       res.write('{"temperature" :' + randomInt(1, 40) + '}'); //#C
       break;
     case '/light':
       res.write('{"light" :' + randomInt(1, 100) + '}');
       break;
     default:
-      res.write('{"hello" : "world"}');
+      res.write('{"witaj" : "świecie"}');
   }
   res.end();  //#D
 }).listen(port);
-console.log('Server listening on http://localhost:' + port);
+console.log('Serwer działa na adresie http://localhost:' + port);
 
-//#A Setting the header to announce we return JSON representations
-//#B Read the request URL and provide responses accordingly
-//#C Write the temperature result as JSON
-//#D Causes to return the results to the client
+//#A Ustawienie nagłówka informującego, że odpowiedź zawiera dane w formacie JSON.
+//#B Pobranie adresu URL żądania i przygotowanie odpowiedniej odpowiedzi.
+//#C Zapisanie temperatury w formie danych JSON
+//#D Przekazanie odpowiedzi do klienta.
 

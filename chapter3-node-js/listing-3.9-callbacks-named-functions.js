@@ -5,14 +5,14 @@ var http = require("http"),
 var serviceRootUrl = 'http://localhost:8686';
 
 http.createServer(function (req, res) {
-  console.log('New incoming client request...');
+  console.log('Nowe żądanie od klienta...');
 
   if (req.url === '/log') {
     getTemperature(res);  //#A
 
   } else {
     res.writeHeader(200, {"Content-Type": "text/plain"});
-    res.write('Please use /log');
+    res.write('Proszę użyć ścieżki /log');
     res.end();
   }
 
@@ -43,7 +43,7 @@ function getLight(res, temp) {
 }
 
 function logValuesReply(res, temp, light) {
-  var logEntry = 'Temperature: ' + temp + ' Light: ' + light;
+  var logEntry = 'Temperatura: ' + temp + ' Oświetlenie: ' + light;
   fs.appendFile('log.txt', logEntry + '\n', encoding = 'utf8', function (err) {
     if (err) throw err;
     res.writeHeader(200, {"Content-Type": "text/plain"}); //#E

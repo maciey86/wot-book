@@ -1,6 +1,6 @@
 {
   "name": "wot-book-node",
-  "description": "Examples for the Web of Things Book",
+  "description": "Przykłady do książki: Internet rzeczy. Budowa sieci z wykorzystaniem technologii webowych i Raspberry Pi",
   "author": "Vlad Trifa",
   "author": "Dominique Guinard",
   "repository": "https://github.com/webofthings/wot-book.git",
