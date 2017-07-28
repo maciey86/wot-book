@@ -17,12 +17,12 @@
     }
 
     if (getParameterByName('key') != ""){
-      console.log('Get API key from query param:'+getParameterByName('key'))
+      console.log('Pobieram klucz API z parametrów zapytania:'+getParameterByName('key'))
       key = getParameterByName('key');
     }
 
     if (getParameterByName('thngId') != ""){
-      console.log('Get thngId from query param:'+getParameterByName('thngId'));
+      console.log('Pobieram thngId z parametrów zapytania:'+getParameterByName('thngId'));
       thngId = getParameterByName('thngId');
     }
 
@@ -31,14 +31,14 @@
       longitude = 0;
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-        console.log(" Loading geolocation")
+        console.log(" Wczytywanie geolokalizacji")
       } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
+        x.innerHTML = "Ta przeglądarka nie obsługuje geolokalizacji.";
       }
     }
 
     function showPosition(position) {
-      console.log(" You are here: ("+position.coords.latitude+","+position.coords.longitude+")");
+      console.log(" Tu jesteś: ("+position.coords.latitude+","+position.coords.longitude+")");
       latitude = position.coords.latitude;
       longitude = position.coords.longitude;
     }
@@ -50,13 +50,13 @@
 
   </script>
 
-  <title>Web Thing Controller</title>
+  <title>Kontroler rzeczy webowej</title>
 
   <style class="anchorjs"></style><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 
-  <!-- Documentation extras -->
+  <!-- Dodatkowe style dokumentacji -->
   <link href="./files/docs.min.css" rel="stylesheet">
 
   <!-- Import D3 -->
@@ -84,11 +84,11 @@
 
   <body>
 
-    <!-- Docs page layout -->
+    <!-- Układ strony dokumentacji -->
     <div class="bs-docs-header" id="content" tabindex="-1">
       <div class="container">
-        <h1>Web Thing Controller</h1>
-        <p>Control Web Things via EVRYTHNG.</p>
+        <h1>Kontroler rzeczy webowej</h1>
+        <p>Kontrola rzeczy webowej przez platformę EVRYTHNG.</p>
       </div>
     </div>
 
@@ -97,10 +97,10 @@
         <div class="col-md-9" id="the-list" role="main">
           <div class="bs-docs-section">
 
-            <h2>My WoT Plug</h2>
+            <h2>Moja wtyczka WoT</h2>
 
             <hr>
-            <h3>Actions</h3>
+            <h3>Akcje</h3>
             <div>
               <h5>_setStatus</h5>
               <input type="checkbox" id="toggle-status"/>
@@ -123,12 +123,12 @@
             </div>
 
 
-            <h5>Response</h5>
+            <h5>Odpowiedź</h5>
 
             <div class="panel-group" id="accordion">
               <div class="panel panel-default" id="panel2">
                 <div class="panel-heading">
-                  <h4 class="panel-title">DEBUG (Show HTTP Response)</h4>
+                  <h4 class="panel-title">DEBUG (wyświetl odpowiedź HTTP)</h4>
                 </div>
                 <div id="response" class="panel-body"> 
                     <pre></pre> 
@@ -137,12 +137,12 @@
             </div>
 
             <hr>
-            <h3>Properties</h3>
+            <h3>Właściwości</h3>
 
             <ul class="list-group">
               <li class="list-group-item">
                 <span id="value-power" class="badge">0.0</span>
-                power
+                moc
               </li>
             </ul>
 
@@ -201,7 +201,7 @@
             function resize() {
 
 
-              // Computes the new dimensions
+              // Oblicza nowe wymiary
               var width = $( "#the-list" ).width() - margin.left - margin.right,//$(window).width() - margin.left - margin.right,
               height = 200 - margin.top - margin.bottom;
 
@@ -209,11 +209,11 @@
                 .domain([0, n - 1])
                 .range([0, width]);  
 
-              // Removes the existing graph
+              // Usuwa dotychczasowy wykres
               svg.selectAll("*").remove();
               
 
-              // Redraws the existing graph
+              // Przerysowuje bieżący wykres
               svg.attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
@@ -247,12 +247,12 @@
 
             function updateCharts(key, value, timestamp) {
 
-              console.log('Updating chart '+key+'='+value+'(@'+timestamp+')');
+              console.log('Aktualizacja wykresu '+key+'='+value+'(@'+timestamp+')');
 
-              // push a new data point onto the back
+              // dodanie nowych danych z tyłu
               data.push(value);
 
-              // redraw line and slide it to the left
+              // narysowanie linii i przesunięcie jej w lewo
               path
                 .attr("d", line)
                 .attr("transform", null)
@@ -271,11 +271,11 @@
             <ul class="list-group">
               <li class="list-group-item">
                 <span id="value-voltage" class="badge">0</span>
-                voltage
+                napięcie
               </li>
               <li class="list-group-item">
                 <span id="value-current" class="badge">0</span>
-                current
+                bieżąće
               </li>
               <li class="list-group-item">
                 <span id="value-status" class="badge">false</span>
@@ -284,6 +284,7 @@
             </ul>
 
             <script>
+
 var url = 'wss://ws.evrythng.com:443/thngs/'+thngId+'/properties?access_token='+key;
 var socket = new WebSocket(url); //#A 
 
@@ -297,20 +298,21 @@ socket.onmessage = function (message) { //#B
 };
 
 socket.onerror = function (error) {
-    console.log('An error occurred while trying to connect to a WebSocket!');
+    console.log('Błąd podczas próby nawiązania połączenia WebSocket!');
     console.log(error);
 };
-//#A Subscribes to all properties of this Thng (via secure WebSockets) 
-//#B Each time we receive a WS message, this will be called 
-//#C We parse the message content (note: it's an array!)
-//#D Call this to update the power graph (function not shown)
-//#E Use the property name to update the badge  
+
+//#A Subskrypcja wszystkich właściwości danego urządzenia Thng (przy wykorzystaniu bezpiecznego protokołu WebSockets) .
+//#B Odebranie każdego komunikatu przesłanego protokołem WebSocket spowoduje wywołanie tej funkcji.
+//#C Przetworzenie zawartości komunikatu (uwaga: to jest tablica!)
+//#D To wywołanie służy do aktualizacji wykresu zużycia energii (sam kod tej funkcji nie został przedstawiony)
+//#E Zastosowanie nazwy właściwości do aktualizacji wartości wyświetlonej na stronie. 
             </script>
 
             <script>
 
 function sendAction(type,value){ 
-  console.log(" You are here: ("+latitude+","+longitude+")");
+  console.log(" Tu jesteś: ("+latitude+","+longitude+")");
 
   $.ajax({ 
       url: 'https://api.evrythng.com/actions/'+type+'?access_token='+key,//#A
@@ -327,11 +329,11 @@ function sendAction(type,value){
       } 
   });
 }
-//#A The custom actions endpoint in EVRYTHNG
-//#B We POST a JSON document
-//#C The payload to POST 
-//#D If successful, update the "response" html element
-//#E If an error, display in the console
+//#A Odwołanie do niestandardowego punktu końcowego platformy EVRYTHNG o nazwie actions.
+//#B Zostanie wykonane żądanie POST zawierające dane w formacie JSON.
+//#C Zawartość żądania POST .
+//#D Jeśli żądanie zostało poprawnie obsłużone, zostanie zaktualizowana zawartość elementu strony o identyfikatorze "response".
+//#E W razie wystąpienia błędu, informacja o tym zostanie wyświetlona w konsoli przeglądarki.
 
             </script>
 
@@ -345,7 +347,7 @@ function sendAction(type,value){
 <footer class="bs-docs-footer" role="contentinfo">
   <div class="container">
 
-    <p>Built with the amazing D3, Bootstrap, and bootstraptoggle.</p>
+    <p>Stronę utworzono korzystając z niesamowitej biblioteki D3, Bootstrap oraz bootstraptoggle.</p>
 
   </div>
 </footer>

@@ -3,7 +3,7 @@ var resources = require('./../../resources/model'),
 
 var interval, sensor;
 var model = resources.pi.sensors;
-var pluginName = 'Temperature & Humidity';
+var pluginName = 'Temperatura i wilgoność';
 var localParams = {'simulate': false, 'frequency': 5000};
 
 exports.start = function (params) {
@@ -42,10 +42,10 @@ function connectHardware() {
     }
   };
   if (sensor.initialize()) {
-    console.info('Hardware %s sensor started!', pluginName);
+    console.info('Uruchomiono sprzętowy czujnik %s!', pluginName);
     sensor.read();
   } else {
-    console.warn('Failed to initialize sensor!');
+    console.warn('Nie udało się zainicjować czujnika!');
   }
 };
 
@@ -55,15 +55,15 @@ function simulate() {
     model.humidity.value = utils.randomInt(0, 100);
     showValue();
   }, localParams.frequency);
-  console.info('Simulated %s sensor started!', pluginName);
+  console.info('Uruchomiono symulowany czujnik %s!', pluginName);
 };
 
 function showValue() {
-  console.info('Temperature: %s C, humidity %s \%',
+  console.info('Temperatura: %s C, wilgotność %s \%',
     model.temperature.value, model.humidity.value);
 };
 
-//#A Initialize the driver for DHT22 on GPIO 12 (as specified in the model)
-//#B Fetch the values from the sensors
-//#C Update the model with the new temperature and humidity values; note that all observers will be notified
-//#D Because the driver doesn’t provide interrupts, you poll the sensors for new values on a regular basis with a regular timeout function and set sensor.read() as a callback
+//#A Inicjalizacja sterownika dla DHT22 działającego na porcie GPIO 12 (zgodnie z tym co podano w modelu)
+//#B Wczytanie wartości z czujników.
+//#C Aktualizacja modelu poprzez zapisanie w nim nowych wartości temperatury i wilgotności; trzeba zwrócić uwagę na to, że przy okazji zostaną powiadomieni wszyscy obserwatorzy.
+//#D Sterownik nie udostępnia przerwań, dlatego też wartości odczytujemy z czujników cyklicznie, co określony czas, używając do tego zwyczajnej funkcji timeout oraz sensor.read() jako funkcji zwrotnej.

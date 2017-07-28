@@ -19,16 +19,15 @@ app.use('/pi/sensors', sensorRoutes);
 app.use('/things', thingsRoutes);
 
 app.get('/pi', function (req, res) {
-  res.send('This is the WoT-Pi!')
+  res.send('To jest webowe Pi!')
 });
 
-// For representation design
 app.use(converter());
 module.exports = app;
 
 
 /*
- //Initial version:
+ //Wersja początkowa:
 
 var express = require('express'),
   actuatorsRoutes = require('./../routes/actuators'),
@@ -44,15 +43,15 @@ app.use('/pi/actuators', actuatorsRoutes); //#D
 app.use('/pi/sensors', sensorRoutes);
 
 app.get('/pi', function (req, res) { //#E
-  res.send('This is the WoT-Pi!')
+  res.send('To jest webowe Pi!')
 });
 
 module.exports = app;
 
-//#A Requires the Express framework, your routes, and the model
-//#B Creates an application with the Express framework; this wraps an HTTP server
-//#C Enable CORS support (see section 6.1.5)
-//#D Binds your routes to the Express application; bind them to /pi/actuators/... and /pi/sensors/...
-//#E Create a default route for /pi
+//#A Wczytanie frameworku Express, zdefiniowanych wcześniej tras oraz modelu.
+//#B Utworzenie aplikacji frameworku Express; zawiera ona implementację możliwości serwera HTTP.
+//#C Włączenie wsparcia dla CORS (patrz punkt 6.1.5).
+//#D Powiązanie tras z aplikacją Express; skojarzenie ich z /pi/actuators/... oraz /pi/sensors/...
+//#E Utworzenie trasy domyślnej: /pi
 
 */

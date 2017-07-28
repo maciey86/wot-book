@@ -18,9 +18,9 @@ function connectHardware() {
           options: {'Accept': 'application/json'}
         })
         .on('response', function (res) { //#D
-          console.info('CoAP response code', res.code);
+          console.info('Kod odpowiedzi CoAP', res.code);
           if (res.code !== '2.05')
-            console.log("Error while contacting CoAP service: %s", res.code);
+            console.log("Błąd komunikacji z usługą CoAP: %s", res.code);
           res.pipe(bl(function (err, data) { //#E
             var json = JSON.parse(data);
             me.value = json.co2;
@@ -36,12 +36,12 @@ function connectHardware() {
 };
 
 function configure() { //#G
-  utils.addDevice('coapDevice', 'A CoAP Device',
-    'A CoAP Device',
+  utils.addDevice('coapDevice', 'Urządzenie CoAP',
+    'Urządzenie CoAP',
     {
       'co2': {
-        'name': 'CO2 Sensor',
-        'description' : 'An ambient CO2 sensor',
+        'name': 'Czujnik CO2',
+        'description' : 'Czujnik CO2 w powietrzu',
         'unit': 'ppm',
         'value': 0
       }
@@ -49,13 +49,14 @@ function configure() { //#G
   me = resources.things.coapDevice.sensors.co2;
   pluginName = resources.things.coapDevice.name;
 };
-//#A Require the CoAP and BL library, a Buffer helper
-//#B Create a sensor object and give it a read function
-//#C The read function wraps a coap over UDP request with the enclosed parameters; replace localhost with the IP of the machine you’re simulating the CoAP device from (e.g., your laptop)
-//#D When CoAP device sends the result, the on response event is triggered
-//#E Fetch the results and update the model
-//#F Poll the CoAP device for new CO2 readings on a regular basis
-//#G Add the resources managed by this plugin to the model
+
+//#A Wczytanie bibliotek CoAP i BL (biblioteki pomocniczej Buffer).
+//#B Utworzenie obiektu czujnika posiadającego funkcję read.
+//#C Funkcja read wykonuje żądanie UDP, wywołując funkcję coap i przekazując do niej odpowiednie parametry; ‘localhost’ należy zastąpić adresem IP komputera symulującego urządzenie CoAP (na przykład używanego laptopa).
+//#D Kiedy urządzenie CoAP przesyła wynik, generowane jest zdarzenie ‘response’.
+//#E Pobranie wyników i aktualizacja modelu.
+//#F Rozpoczęcie regularnego odpytywania urządzenia CoAP i pobieranie wyników pomiaru CO2.
+//#G Dodanie zasobów zarządzanych przez tę wtyczkę do modelu.
 
 
 exports.start = function (params, app) {
@@ -75,17 +76,17 @@ exports.stop = function () {
   } else {
     clearInterval(pollInterval);
   }
-  console.info('%s plugin stopped!', pluginName);
+  console.info('Zatrzymano czujnik %s!', pluginName);
 };
 
 function simulate() {
   interval = setInterval(function () {
-    me.value = utils.randomInt(0, 1000);
+    me.co2 = utils.randomInt(0, 1000);
     showValue();
   }, localParams.frequency);
-  console.info('Simulated %s sensor started!', pluginName);
+  console.info('Uruchomiono symulowany czujnik %s!', pluginName);
 };
 
 function showValue() {
-  console.info('CO2 Level: %s ppm', me.value);
+  console.info('Poziom CO2: %s ppm', me.value);
 };

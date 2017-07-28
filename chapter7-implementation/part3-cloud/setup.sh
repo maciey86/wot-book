@@ -1,18 +1,11 @@
 #!/bin/bash          
-## This file is a set of cURL requests used in Chapter 7 of the Book "Building the Web of Things" by Guinard & Trifa (bit.ly/wotbook)
-
-# Ensure we are running bash, if not run in bash
-if [ -z "$BASH_VERSION" ]
-then
-    exec bash "$0" "$@"
-fi
-
+## Ten plik zawieraj zestaw żądań cURL użytych w rozdziale 7. książki "Internet rzeczy. Budowa sieci z wykorzystaniem technologii webowych i Raspberry Pi"
 SERVER="https://api.evrythng.com"
 [ -z "$EVRYTHNG_API_KEY" ] && EVRYTHNG_API_KEY=$1
 
 mkdir -p payloads
 
-# Extract JSON content
+# Bardzo prosty skrypt do pobierania zawartości w formacie JSON
 function parse_json()
 {
     echo $1 | \
@@ -32,46 +25,46 @@ function parse_json()
 
 
 #####
-##### Step 0 - Let's create a config.json file which will be used later
+##### Krok 0 - Tworzenie prostego pliku config.json, który będzie używany później.
 #####
 echo "{" > config.json
 echo '  "operatorApiKey":"'$EVRYTHNG_API_KEY'",' >> config.json
 
 
 #####
-##### Step 1 - 1. Create a Project
+##### Krok 1 - 1. Utworzenie projektu
 #####
 curl -X POST "$SERVER/projects" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Content-Type: application/json" \
-     -d '{ "name": "Web of Things Book", "description": "My First WoT Project" }' > payloads/project.json
+     -d '{ "name": "Ksiazka WWW rzeczy", "description": "Pierwszy projekt WoT" }' > payloads/project.json
 
-# Parse the response to get the project ID
+# Przetworzenie odpowiedzi w celu pobrania identyfikatora projektu
 PROJECT=`cat payloads/project.json`
 PROJECT_ID=`parse_json "$PROJECT" id`
 
-# Store the project ID in our config.json file
-echo "Created Project ID: $PROJECT_ID"
-echo "RESULT: $PROJECT"
+# Zapisanie identyfikatora projektu w pliku config.json 
+echo "Identyfikator projektu: $PROJECT_ID"
+echo "WYNIK: $PROJECT"
 echo '  "projectId":"'$PROJECT_ID'",' >> config.json
 
 
 #####
-##### Step 1 - 2. Let's create an application within this project
+##### Krok 1 - 2. Utworzenie aplikacji w ramach projektu
 #####
 curl -X POST "$SERVER/projects/$PROJECT_ID/applications" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Content-Type: application/json" \
-     -d '{ "name": "My Awesome WoT App", "description": "My First WoT Client Application","tags":["WoT","device","plug","energy"], "socialNetworks": {} }' > payloads/app.json
+     -d '{ "name": "Moja superaplikacja", "description": "Moja pierwsza aplikacja kliencka","tags":["WoT","device","plug","energy"], "socialNetworks": {} }' > payloads/app.json
 
-# Parse the response to get the app ID and app API key
+# Przetworzenie odpowiedzi w celu pobrania identyfikatora aplikacji i klucza API aplikacji
 APP=`cat payloads/app.json`
 APP_ID=`parse_json "$APP" id`
 APP_API_KEY=`parse_json "$APP" appApiKey`
 
-# Store the app ID and app API key in our config.json file
-echo "Created App ID: $APP_ID"
-echo "RESULT: $APP"
+# Zapisanie identyfikatora aplikacji oraz klucza API aplikacji w pliku config.json
+echo "Identyfikator aplikacji: $APP_ID"
+echo "WYNIK: $APP"
 echo '  "appId":"'$APP_ID'",' >> config.json
 echo '  "appApiKey":"'$APP_API_KEY'",' >> config.json
 
@@ -79,24 +72,24 @@ echo '  "appApiKey":"'$APP_API_KEY'",' >> config.json
 
 
 #####
-##### Step 2 - 1. Let's now create a product within this project
+##### Krok 2 - 1. Utworzenie produktu w ramach projektu
 #####
 curl -X POST "$SERVER/products?project=$PROJECT_ID" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Content-Type: application/json" \
-     -d '{ "fn": "WoT Smart Plug", "description": "A Web-connected Smart Plug","tags":["WoT","device","energy"],"photos":["https://webofthings.github.io/files/plug.jpg"] }' > payloads/product.json
+     -d '{ "fn": "Wytczka WoT", "description": "Iteligentna wtyczka WoT","tags":["WoT","device","energy"],"photos":["https://webofthings.github.io/files/plug.jpg"] }' > payloads/product.json
 
-# Parse the response to get the product ID
+# Przetworzenie odpowiedzi w celu pobrania identyfikatora produktu
 PRODUCT=`cat payloads/product.json`
 PRODUCT_ID=`parse_json "$PRODUCT" id`
 
-# Store the product ID in our config.json file
-echo "Created Product ID: $PRODUCT_ID"
-echo "RESULT: $PRODUCT"
+# Zapisanie identyfikatora produktu w pliku config.json
+echo "Utworzony identyfikator produktu: $PRODUCT_ID"
+echo "WYNIK: $PRODUCT"
 echo '  "productId":"'$PRODUCT_ID'",' >> config.json
 
 
-# Find this product in this project - You should see your product here
+# Odszukanie tego produktu w projekcie - Tu powinien zostać wyświetlony produkt
 curl -X GET "$SERVER/products/$PRODUCT_ID?project=$PROJECT_ID" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Accept: application/json" 
@@ -105,50 +98,50 @@ curl -X GET "$SERVER/products/$PRODUCT_ID?project=$PROJECT_ID" \
 
 
 #####
-##### Step 2 - 2. Let's now create a thng (an instance of the product) within this project
+##### Krok 2 - 2. Utworzenie urządzenia Thng (egzemplarza tego produktu) w ramach projektu
 #####
 curl -X POST "$SERVER/thngs?project=$PROJECT_ID" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Content-Type: application/json" \
-     -d '{ "name": "My WoT Plug", "product":"'$PRODUCT_ID'", "description": "My own Smart Plug","tags":["WoT","device","plug","energy"] }' > payloads/thng.json
+     -d '{ "name": "Moja wtyczka WoT", "product":"'$PRODUCT_ID'", "description": "Moja wlasna wtyczka WoT","tags":["WoT","device","plug","energy"] }' > payloads/thng.json
 
 
-# Parse the response to get the thng ID
+# Przetworzenie odpowiedzi w celu pobrania identyfikatora urządzenia Thng
 THNG=`cat payloads/thng.json`
 THNG_ID=`parse_json "$THNG" id`
 
 
-# Store the thng ID in our config.json file
-echo "Created Thng ID: $THNG_ID"
-echo "RESULT: $THNG"
+# Zapisanie identyfikatora urządzenia Thng w plikuconfig.json 
+echo "Utworzony identyfikator urządzenia Thng: $THNG_ID"
+echo "WYNIK: $THNG"
 echo '  "thngId":"'$THNG_ID'",' >> config.json
 
 
 
 #####
-##### Step 3 - Let's now create an API Key for this device
+##### Krok 3 - Utworzenie klucza API dla tego urządzenia
 #####
 curl -X POST "$SERVER/auth/evrythng/thngs" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{ "thngId": "'$THNG_ID'" }' > payloads/deviceApiKey.json
 
-# Parse the response to get the device API Key
+# Przetworzenie odpowiedzi w celu pobrania klucza API urządzenia
 THNG_API=`cat payloads/deviceApiKey.json`
 THNG_API_KEY=`parse_json "$THNG_API" thngApiKey`
 
 
-# Store the device API Key in our config.json file
+# Zapisanie klucza API urzązenia w pliku config.json
 echo '  "thngApiKey":"'$THNG_API_KEY'"' >> config.json
 
-# Close the file
+# Zakończenie pliku
 echo '}' >> config.json
 
 
 
 
 #####
-##### Step 4 - Let's update two properties of this thng
+##### Krok 4 - Aktualizacja dwóch właściwości urządzenia Thng
 #####
 curl -X POST "$SERVER/thngs/$THNG_ID/properties" \
      -H "Authorization: $THNG_API_KEY" \
@@ -165,7 +158,7 @@ curl -X POST "$SERVER/thngs/$THNG_ID/properties" \
 	     ]'
 
 
-# Let's update this Thng a few times with random values
+# Wykonanie kilku aktualizacji przy wykorzystaniu wartości losowych
 for i in {1..5} 
 do 
 	curl -X POST "$SERVER/thngs/$THNG_ID/properties" \
@@ -178,25 +171,25 @@ done
 
 
 #####
-##### Section 7.4.3 - Let's use actions to control our plug
+##### Punkt 7.4.3 - Zastosowanie akcji do kontroli wtyczki
 #####
 
-# First, we create a new action type 
-# NOTE: obviously, this would fail if you have already run the script and this action type already exists in your account!
+# W pierwszej kolejności zostaje utworzony nowy typ akcji
+# UWAGA: ta operacja oczywiście się nie uda jeśli skrypt już został wykonany, a podany tu typ akcji już istnieje na koncie użytkownika
 curl -X POST "$SERVER/actions?project=$PROJECT_ID" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Content-Type: application/json" \
-     -d '{ "name": "_setStatus", "description": "Changes the Status of the Thng","tags":["WoT","device"] }' > payloads/setStatus.json
+     -d '{ "name": "_setStatus", "description": "Zmiana statusu urzadzenia Thng","tags":["WoT","device"] }' > payloads/setStatus.json
 
 
-# Creates a new instance of this action type (= sends a command to the device)
+# To polecenie tworzy nowy ezgemplarz tego typu akcji (co jest równoznaczne z wysłaniem polecenia do urządzenia)
 curl -X POST "$SERVER/actions/_setStatus?project=$PROJECT_ID" \
      -H "Authorization: $EVRYTHNG_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{ "type": "_setStatus", "thng":"'$THNG_ID'", "customFields": {"status":false} }'
 
 #####
-##### Section 7.4.4 - Let's create a redirection for this app
+##### Punkt 7.4.4 - Utworzenie przekierowania do tej aplikacji
 #####
 curl -X POST "https://tn.gg/redirections" \
      -H "Authorization: $EVRYTHNG_API_KEY" \

@@ -1,48 +1,49 @@
-// Final version
+// wersja ostateczna
 var httpServer = require('./servers/http'),
   wsServer = require('./servers/websockets'),
   resources = require('./resources/model');
 
-// Internal Plugins
+// wtyczki wewnętrzne
 var ledsPlugin = require('./plugins/internal/ledsPlugin'), //#A
   pirPlugin = require('./plugins/internal/pirPlugin'), //#A
   dhtPlugin = require('./plugins/internal/DHT22SensorPlugin'); //#A
 
-// Internal Plugins for sensors/actuators connected to the PI GPIOs
-// If you test this with real sensors do not forget to set simulate to 'false'
+// Wtyczki wewnętrzne dla czujników/sygnalizatorów/aktuatorów podłączonych do portów GPIO Pi.
+// W razie testowania kodu z użyciem rzeczywistych czujników, koniecznie należy zmienić 
+// wartość 'simulate' na 'false'.
 pirPlugin.start({'simulate': true, 'frequency': 2000}); //#B
 ledsPlugin.start({'simulate': true, 'frequency': 10000}); //#B
 dhtPlugin.start({'simulate': true, 'frequency': 10000}); //#B
 
-// External Plugins
+// wtyczki zewnętrzne
 var coapPlugin = require('./plugins/external/coapPlugin');
 coapPlugin.start({'simulate': false, 'frequency': 10000});
 
-// HTTP Server
+// serwer HTTP 
 var server = httpServer.listen(resources.pi.port, function () {
-  console.log('HTTP server started...');
+  console.log('Uruchomiono serwer HTTP...');
 
-  // Websockets server
+  // serwer Websocket
   wsServer.listen(server);
 
-  console.info('Your WoT Pi is up and running on port %s', resources.pi.port);
+  console.info('Twoje webowe Pi jest skonfigurowane i działa na porcie %s', resources.pi.port);
 });
-//#A Require all the sensor plugins you need
-//#B Start them with a parameter object; here you start them on a laptop so you activate the simulation function
+//#A Wczytanie wszystkich niezbędnych wtyczek.
+//#B Uruchomienie wtyczek z użyciem obiektów zawierających odpowiednie parametry, w tym przypadku uruchamiany je na laptopie, więc wtyczki mają działać w trybie symulacji.
 
 
 
 /*
- // Initial version:
+ // wersja początkowa:
  var httpServer = require('./servers/http'), //#A
  resources = require('./resources/model');
 
  var server = httpServer.listen(resources.pi.port, function () { //#B
-  console.info('Your WoT Pi is up and running on port %s', resources.pi.port); //#C
+  console.info('Twoje webowe Pi jest uruchomione i działa na porcie %s', resources.pi.port); //#C
  });
 
- //#A Load the http server and the model
- //#B Start the HTTP server by invoking listen() on the Express application
- //#C Once the server is started the callback is invoked
+ //#A Wczytanie serwera HTTP i modelu.
+ //#B Uruchomienie serwera HTTP poprzez wywołanie funkcji listen() obiektu aplikcji Express.
+ //#C Po uruchomieniu serwera zostanie wywołana funkcja zwrotna.
  */
 

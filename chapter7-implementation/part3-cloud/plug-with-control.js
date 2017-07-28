@@ -24,10 +24,10 @@ client.on('message', function(topic, message) {
   var resources = topic.split('/');
   if (resources[1] && resources[1] === "thngs"){ // #B
     if (resources[2] && resources[2] === thngId){  // #C
-      if (resources[3] && resources[3] === "properties"){ //#D
+      if (resources[3] && resources[3] === "properties"){ // #D
         var property = JSON.parse(message);
         console.log('Property was updated: '+property[0].key+'='+property[0].value); 
-      } else if (resources[3] && resources[3] === "actions"){ //#E
+      } else if (resources[3] && resources[3] === "actions"){ // #E
         var action = JSON.parse(message);
         handleAction(action); 
       }
@@ -38,27 +38,27 @@ client.on('message', function(topic, message) {
 function handleAction(action) {
   switch(action.type) { // #F
     case '_setStatus':
-      console.log('ACTION: _setStatus changed to: '+action.customFields.status); // #G
+      console.log('ACTION: zmiana wartości _setStatus na: '+action.customFields.status); // #G
       status=Boolean(action.customFields.status);
       updateProperty ('status',status);
-      /* Do something else too */
+      /* Wykonanie jakichś innych czynności. */
       break;
     case '_setLevel':
-      console.log('ACTION: _setLevel changed to: '+action.customFields.level);
+      console.log('ACTION: zmiana wartości _setLevel na: '+action.customFields.level);
       break;
     default:
-      console.log('ACTION: Unknown action type: '+action.type);
+      console.log('ACTION: Nie znany typ akcji: '+action.type);
       break;
   }
 }
 
-//#A Subscribe to all actions on this thing
-//#B Verify if the MQTT message is on a Thng
-//#C Verify if the message is for the current Thng
-//#D Check if a property was changed; if so display it
-//#E Was it an action? If so call handleAction()
-//#F Check the type of this action
-//#G If action type is _setStatus, display the new value and do something with it
+//#A Utworzenie subskrypcji wszystkich akcji w danej rzeczy.
+//#B Sprawdzenie czy komunikat MQTT jest na urządzeniu Thng
+//#C Sprawdzenie czy komunikat jest przeznaczony do danego urządzenia Thng
+//#D Sprawdzenie czy wartość właściwości legła zmianie; jeśli tak to zostanie ona wyświetlona.
+//#E Czy to była akcja? Jeśli tak to zostaje wywołana funkcja handleAction()
+//#F Sprawdzenie typu akcji.
+//#G Jeśli akcji jest typu _setStatus, to zostaje wyświetlona nowa wartość i wykonane jakieś dodatkowe operacje na niej.
 
 
 function updateProperties() {

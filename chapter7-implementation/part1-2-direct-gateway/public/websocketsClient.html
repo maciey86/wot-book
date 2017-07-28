@@ -8,7 +8,7 @@
             console.log(event.data);
         };
         socket.onerror = function (error) {
-            console.log('An error occurred while trying to connect to a Websocket!');
+            console.log('Podczas próby nawiązania połączenia Websocket wystąpił błąd!');
             console.log(error);
         };
         socket.onopen = function (event) {

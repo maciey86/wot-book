@@ -4,7 +4,7 @@ var coap = require('coap'),  //#A
 var port = 5683;
 
 coap.createServer(function (req, res) {
-  console.info('CoAP device got a request for %s', req.url);
+  console.info('Urządzenie CoAP odebrało żądanie przesłane na adres %s', req.url);
   if (req.headers['Accept'] != 'application/json') {
     res.code = '4.06'; //#B
     return res.end();
@@ -20,7 +20,7 @@ coap.createServer(function (req, res) {
       respond(res);
   }
 }).listen(port, function () {
-  console.log("CoAP server started on port %s", port)
+  console.log("Serwer CoAP uruchomiony na porcie %s", port)
 });//#E
 
 function respond(res, content) { //#F
@@ -33,9 +33,10 @@ function respond(res, content) { //#F
     res.end();
   }
 };
-//#A Require the Node.js CoAP module you installed
-//#B You only serve JSON, so you reply with a 4.06 (= HTTP 406: Not acceptable)
-//#C Handle the different resources requested
-//#D This is the CO2 resource; generate a random value for it and respond
-//#E Start the CoAP server on port 5683 (CoAP’s default port)
-//#F Send the JSON content back or reply with a 4.04 (= HTTP 404: Not found)
+
+//#A Wczytanie zainstalowanego modułu CoAP dla Node.js
+//#B Obsługujemy jedynie format JSON, więc w innym przypadku zwracana jest odpowiedź z kodem 4.06 (odpowiadającym kodowi statusu HTTP 406: Not acceptable)
+//#C Obsługa różnych dostępnych zasobów.
+//#D Zasób CO2; wygenerowanie i zwrócenie wartości losowej.
+//#E Uruchomienie serwera CoAP na porcie 5683 (domyślnym porcie CoAP).
+//#F Przesłanie danych JSON lub odpowiedzi z kodem 4.04 (odpowiadającym kodowi statusu HTTP 404: Not Found)

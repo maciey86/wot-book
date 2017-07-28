@@ -1,4 +1,4 @@
-// Final version
+// wersja ostateczna
 var express = require('express'),
   router = express.Router(),
   resources = require('./../resources/model');
@@ -25,13 +25,13 @@ router.route('/humidity').get(function (req, res, next) {
 
 module.exports = router;
 
-//#A Assign the results to a new property of the req object that you pass along from middleware to middleware
-//#B Call the next middleware; the framework will ensure the next middleware gets access to req (including the req.result) and res
+//#A Przypisanie wyniku do nowej właściwości obiektu req, przekazywanego od jednego oprogramowania warstwy pośredniej do drugiego.
+//#B Wywołanie następnego oprogramowania warstwy pośredniej; framework zapewnia, że oprogramowanie to będzie mieć dostęp do obiektów req (włącznie z właściwością req.result) oraz res.
 
 
 
 /*
-// Initial version
+// Wersja początkowa
 var express = require('express'),
   router = express.Router(), //#A
   resources = require('./../resources/model');
@@ -54,10 +54,10 @@ router.route('/humidity').get(function (req, res, next) { //#E
 
 module.exports = router; //#F
 
-//#A We require and instantiate an Express Router to define the path to our resources
-//#B Create a new route for a GET request on all sensors and attach a callback function
-//#C Reply with the sensor model when this route is selected
-//#D This route serves the passive infrared sensor
-//#E These routes serve the temperature and humidity sensor
-//#F We export router to make it accessible for "requirers" of this file
+//#A Wczytanie Express i utworzenie obiektu Router w celu zdefiniowania ścieżek od zasobów.
+//#B Utworzenie nowej trasy dla żądań GET dla wszystkich czunikow i dołączenie funkcji zwrotnej.
+//#C Zwrócenie modelu czujników w przypadku odebrania żądania odwołującego się do tej trasy.
+//#D Ta trasa obsługuje pasywny czujnik podczerwieni.
+//#E Te trasy obsługują czujnik temperatury i wilgotności.
+//#F Wyeksportowanie obiektu router, aby udostępnić go we wszystkich plikach, które wczytają go używając require.
 */

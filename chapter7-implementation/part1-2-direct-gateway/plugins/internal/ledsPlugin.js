@@ -22,12 +22,12 @@ exports.stop = function () {
   } else {
     actuator.unexport();
   }
-  console.info('%s plugin stopped!', pluginName);
+  console.info('Wtyczka %s została zatrzymana!', pluginName);
 };
 
 function observe(what) {
   Object.observe(what, function (changes) {
-    console.info('Change detected by plugin for %s...', pluginName);
+    console.info('Wtyczka wykryła zmianę %s...', pluginName);
     switchOnOff(model.value); //#B
   });
 };
@@ -35,7 +35,7 @@ function observe(what) {
 function switchOnOff(value) {
   if (!localParams.simulate) {
     actuator.write(value === true ? 1 : 0, function () { //#C
-      console.info('Changed value of %s to %s', pluginName, value);
+      console.info('Zmieniono wartość %s na %s', pluginName, value);
     });
   }
 };
@@ -43,23 +43,22 @@ function switchOnOff(value) {
 function connectHardware() {
   var Gpio = require('onoff').Gpio;
   actuator = new Gpio(model.gpio, 'out'); //#D
-  console.info('Hardware %s actuator started!', pluginName);
+  console.info('Uruchomiono sprzętowy sygnalizator %s!', pluginName);
 };
 
 function simulate() {
   interval = setInterval(function () {
-    // Switch value on a regular basis
+    // Cyklicznie zmieniamy wartość na przeciwną.
     if (model.value) {
       model.value = false;
     } else {
       model.value = true;
     }
   }, localParams.frequency);
-  console.info('Simulated %s actuator started!', pluginName);
+  console.info('Uruchomiono symulowany sygnalizator %s!', pluginName);
 };
 
-//#A Observe the model for the LEDs
-//#B Listen for model changes, on changes call switchOnOff
-//#C Change the LED state by changing the GPIO state
-//#D Connect the GPIO in write (output) mode
-
+//#A To wywołanie inicjuje obserwację modelu dla diody LED.
+//#B Ta funkcja nasłuchuje zmian modelu, a w przypadku ich wykrycia wywołuje funkcję switchOnOff.
+//#C Zmiana stanu diody LED poprzez zmianę stanu portu GPIO.
+//#D Nawiązanie połączenia z portem GPIO w trybie zapisu (wyjściowym).

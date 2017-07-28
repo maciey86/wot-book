@@ -6,7 +6,7 @@ var thngUrl='/thngs/'+thngId;
 var thngApiKey=config.thngApiKey;
 var interval;
 
-console.log('Using Thng #'+thngId+' with API Key: '+ thngApiKey);
+console.log('Używane urządzenie Thng #'+thngId+' o kluczu API: '+ thngApiKey);
 
 var client = mqtt.connect("mqtts://mqtt.evrythng.com:8883", {// #B
   username: 'authorization',
@@ -40,21 +40,22 @@ function updateProperty (property,value) {
   client.publish(thngUrl+'/properties/'+property, '[{"value": '+value+'}]');
 }
 
-// Let's close this connection cleanly
+// prawidłowe zamknięcie połączenia
 process.on('SIGINT', function() { // #K
   clearInterval(interval);
   updateProperty ('livenow', false);
   client.end();
   process.exit();
 });
-//#A Load configuration from file (Thng ID and Thng API key)
-//#B Connect to the secure MQTT server on EVRYTHNG
-//#C Callback called once when the MQTT connection suceeds
-//#D Subscribe to all properties
-//#E Set the property livenow to true
-//#F Call the function updateProperties() in 5 seconds
-//#G Called every time an MQTT message is received from the broker
-//#H Measures voltage (fluctuates around ~220 volts)
-//#I Measures current (fluctuates 0–10 amps)
-//#J Measures power using P=U*I*PF (PF=power factor fluctuates 60–70%)
-//#K Cleanly exit this code and set the livenow property to false
+
+//#A Wczytanie danych konfiguracyjnych z pliku (identyfikator urządzenia Thng ID i jego klucz API).
+//#B Nawiązanie połączenia z bezpiecznym serwerem MQTT na platformie EVRYTHNG.
+//#C Funkcja zwrotna wywoływana po udanym nawiązaniu połączenia MQTT.
+//#D Utworzenie subskrypcji wszystkich właściwości.
+//#E Przypisanie właściwości livenow wartości true.
+//#F Wywołanie funkcji updateProperties() po upłynięciu 5 sekund.
+//#G Ta funkcja jest wywoływana za każdym razem gdy zostanie odebrana wiadomość MQTT nadesłana przez brokera.
+//#H Pomiar napięcia (oscyluje w okolicach 220 woltów).
+//#I Pomiar natężenia prądu (waha się w granicach 0–10 amperów).
+//#J Pomiar mocy z użyciem wzrocu P=U*I*PF (PF=współczynnik mocy zmienia się w granicach 60–70%).
+//#K Prawidłowe zamknięcie połączenia z jednoczesnym przypisaniem właściwości livenow wartości false.

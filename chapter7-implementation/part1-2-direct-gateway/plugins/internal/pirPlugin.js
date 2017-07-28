@@ -20,7 +20,7 @@ exports.stop = function () { //#A
   } else {
     sensor.unexport();
   }
-  console.info('%s plugin stopped!', pluginName);
+  console.info('Wtyczka %s została zatrzymana!', pluginName);
 };
 
 function connectHardware() { //#B
@@ -31,7 +31,7 @@ function connectHardware() { //#B
     model.value = !!value;
     showValue();
   });
-  console.info('Hardware %s sensor started!', pluginName);
+  console.info('Uruchomiono sprzętowy czujnik %s!', pluginName);
 };
 
 function simulate() { //#E
@@ -39,17 +39,15 @@ function simulate() { //#E
     model.value = !model.value;
     showValue();
   }, localParams.frequency);
-  console.info('Simulated %s sensor started!', pluginName);
+  console.info('Uruchomiono symulowany czujnik %s!', pluginName);
 };
 
 function showValue() {
-  console.info(model.value ? 'there is someone!' : 'not anymore!');
+  console.info(model.value ? 'ktoś tu jest!' : 'już nie ma!');
 };
 
-//#A starts and stops the plugin, should be accessible from other Node.js files so we export them
-//#B require and connect the actual hardware driver and configure it
-//#C configure the GPIO pin to which the PIR sensor is connected
-//#D start listening for GPIO events, the callback will be invoked on events
-//#E allows the plugin to be in simulation mode. This is very useful when developing or when you want to test your code on a device with no sensors connected, such as your laptop.
-
-
+//#A Te funkcje odpowiednio uruchamiają i zatrzymują wtyczkę; powinny być one dostępne w innych plikach Node.js, więc je eksportujemy.
+//#B Wczytanie i podłączenie faktycznego sterownika sprzętowego oraz jego konfiguracja.
+//#C Konfiguracja portu GPIO, do którego jest podłączony czujnik PIR.
+//#D Rozpoczęcie nasłuchiwania na zdarzenia GPIO; zajście zdarzenia spowoduje wywołanie funkcji zwrotnej.
+//#E Ta funkcja pozwala wtyczce działać w trybie symulacji czujnika. Jest ona bardzo wygodna na etapie pisania aplikacji lub kiedy chcemy ją przetestować bez podłączania czujników, na przykład na laptopie.

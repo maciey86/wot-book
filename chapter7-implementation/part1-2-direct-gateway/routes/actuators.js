@@ -24,13 +24,13 @@ router.route('/leds/:id').get(function (req, res, next) { //#A
 
 module.exports = router;
 
-//#A Callback for a GET request on an LED
-//#B Callback for a PUT request on an LED
-//#C Update the value of the selected LED in the model
+//#A Funkcja zwrotna obsługująca żądania GET skierowane do diody LED.
+//#B Funkcja zwrotna obsługująca żądania PUT skierowane do diody LED.
+//#C Aktualizacja wartości wybranej diody LED w modelu.
 
 
 /*
-//Initial version:
+//wersja początkowa:
 
 var express = require('express'),
 router = express.Router(),
@@ -50,9 +50,10 @@ router.route('/leds/:id').get(function (req, res, next) { //#D
 
 module.exports = router;
 
-//#A Create a new route for a GET request
-//#B Reply with the actuators model when this route is selected
-//#C This route serves a list of LEDs
-//#D with :id we inject a variable in the path which will be the LED number
-//#E the path variables are accessible via req.params.id we use this to select the right object in our model and return it
+//#A Utworzenie nowej trasy dla żądań GET.
+//#B Zwrócenie modelu czujników w przypadku odebrania żądania odwołującego się do tej trasy.
+//#C Ta trasa obsługuje listę diod LED.
+//#D Przy użyciu :id wstrzykujemy do ścieżki zmienną z numerem diody LED.
+//#E Zmienne ścieżki są dostępne przy użyciu req.params.id, używamy tej wartości by wybrać z modelu odpowiedni model i zwrócić go.
+
 */

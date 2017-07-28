@@ -1,26 +1,26 @@
 {
   "pi": {
-    "name": "WoT Pi",
-    "description": "A simple WoT-connected Raspberry PI for the WoT book.",
+    "name": "Webowe Pi",
+    "description": "Proste Raspberry Pi podłączone do WWW rzeczy.",
     "port": 8484,
     "sensors": {
       "temperature": {
-        "name": "Temperature Sensor",
-        "description": "An ambient temperature sensor.",
+        "name": "Czujnik temperatury",
+        "description": "Czujnik temperatury otoczenia.",
         "unit": "celsius",
         "value": 0,
         "gpio": 12
       },
       "humidity": {
-        "name": "Humidity Sensor",
-        "description": "An ambient humidity sensor.",
+        "name": "Czujnik wilgotności",
+        "description": "Czujnik wilgotności otoczenia.",
         "unit": "%",
         "value": 0,
         "gpio": 12
       },
       "pir": {
-        "name": "Passive Infrared",
-        "description": "A passive infrared sensor. When 'true' someone is present.",
+        "name": "Pasywny czujnik podczerwieni",
+        "description": "Pasywny czujnik podczerwieni. Wartość 'true' oznacza wykrycie jakiejś osoby.",
         "value": true,
         "gpio": 17
       }
